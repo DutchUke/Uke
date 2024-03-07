@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<style>
+@import url("https://fonts.googleapis.com/css?family=Alice");
+@import url("https://fonts.googleapis.com/css?family=Domine");
+
+body {
+	font-family: 'Domine';
+	font-size: 17px;
+	font-weight: 500;
+	line-height: 27px;
+	color: #0B0908;
+	letter-spacing: 0.2px;
+	background-color: #283129;
+}
+
+.calculator {
+	margin: auto;
+	width: 40%;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fceee9;
+	padding: 0px 40px;
+	border-radius: 35px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+h1 {
+	text-align: center;
+	font-family: 'Alice';
+	font-weight: 700;
+	letter-spacing: 1px;
+	padding: 30px;
+	color: #251F1D;
+}
+
+h2	{
+	text-align: Left;
+	font-family: 'Alice';
+	font-weight: 700;
+	letter-spacing: 1px;
+	padding: 0px;
+	color: #251F1D;
+	font-size: 22px;
+}
+
+p {
+	text-align: justify;
+	margin-bottom: 30px;
+}
+
+.copyright {
+	text-align: right;
+ 	font-size: 12px;
+}
+
+
+table, th, td {
+  border: 2px solid #667b68;
+  border-collapse: collapse;
+	font-weight: 600;
+
+}
+
+th, td {
+  padding: 7px;
+  text-align: center;
+}
+
+th {
+	background-color: #A3B899;
+}
+
+
+input {
+	font-family: 'Domine';
+    font-size: 17px;
+    color: 	#251F1D;
+    width: 100%;
+    height: 50px;
+    border-radius: 0px;
+    border: 0px solid #eee;
+    outline: none;
+    line-height: 50px;
+    text-align: center;
+	background-color: rgb(231,237,238,0);
+	transition: background-color .3s;
+}
+
+input:focus {
+	color: #283129;
+	font-weight: 700;
+	background-color: #fdf6f4;
+}
+
+input:hover {
+	color: #283129;
+	font-weight: 700;
+	background-color: #fdf6f4;
+}
+</style>
+<style>
+.tab {
+  overflow: hidden;
+  margin: 0 -40px;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  background-color: #B0A6A3;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: 0px;
+  outline: none;
+  cursor: pointer;
+  margin: 0 7px 0 0;
+  width: 20%;
+  height: 50px;
+  padding: 7px;
+  transition: 0.3s;
+  font-family: 'Domine';
+  font-size: 17px;
+  line-height: 27px;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  color: #343130;
+}
+
+.tab button:hover {
+  background-color: #fceee9;
+  font-weight: 700;
+}
+
+.tab button.active {
+  background-color: #fceee9;
+  font-weight: 700;
+}
+
+.tabcontent {
+  display: none;
+  -webkit-animation: fadeEffect .8s;
+  animation: fadeEffect .8s;
+}
+
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+<head>
+    <title>Uke fret & string converter</title>
+	<meta name="author" content="Thijs Kevenaar">
+</head>
+
+<body>
+	<div class="calculator">
+		<div class="tab">
+		  <button class="tablinks" onclick="openUke(event, 'high')" id="defaultOpen">Re-entrant</button>
+		  <button class="tablinks" onclick="openUke(event, 'low')">Linear</button>
+		</div>
+		<h1>Uke fret & string converter</h1>
+		<p>This tool was developed to help ukulele players find alternative ways to play a single note. Use the tabs to choose between ukulele in <i>re-entrant</i> or <i>linear</i> tuning. After conversion it shows alternatives to play the specified note. Try it out!</p>
+		<div id="high" class="tabcontent">
+		<h2>Re-entrant tuning</h2>
+		<form>
+			<table width="100%">
+			  <tr>
+				<th>String</th>
+				<th>Current fret</th>
+				<th><i style="transform: rotatae(-10deg)" class="fa-solid fa-wand-magic-sparkles"></i> Alternative frets</th>
+			  </tr>
+			  <tr>
+				<td>1st string (a)</td>
+				<td><input id="str1" type="number" placeholder="Fret" oninput="calc1(this.value)" onchange="calc1(this.value)" min="0" max="12"></td>
+				<td id="demo1"></td>
+			  </tr>
+			  <tr>
+			   <td>2nd string (e)</td>
+			   <td><input id="str2" type="number" placeholder="Fret" oninput="calc2(this.value)" onchange="calc2(this.value)" min="0" max="12"></td>
+				<td id="demo2"></td>
+			  </tr>
+			  <tr>
+				<td>3rd string (c)</td>
+				<td><input id="str3" type="number" placeholder="Fret" oninput="calc3(this.value)" onchange="calc3(this.value)" min="0" max="12"></td>
+				<td id="demo3"></td>
+			  </tr>
+			  <tr>
+				<td>4th string (high-g)</td>
+				<td><input id="str4" type="number" placeholder="Fret" oninput="calc4(this.value)" onchange="calc4(this.value)" min="0" max="12"></td>
+				<td id="demo4"></td>
+			  </tr>
+			</table>
+		</form>
+		</div>
+		<div id="low" class="tabcontent">
+		<h2>Linear tuning</h2>
+		<form>
+			<table width="100%">
+			  <tr>
+				<th>String</th>
+				<th>Current fret</th>
+				<th><i style="transform: rotate(-10deg)" class="fa-solid fa-wand-magic-sparkles"></i> Alternative frets</th>
+			  </tr>
+			  <tr>
+				<td>1st string (a)</td>
+				<td><input id="str5" type="number" placeholder="Fret" oninput="calc5(this.value)" onchange="calc5(this.value)" min="0" max="12"></td>
+				<td id="demo5"></td>
+			  </tr>
+			  <tr>
+			   <td>2nd string (e)</td>
+			   <td><input id="str6" type="number" placeholder="Fret" oninput="calc6(this.value)" onchange="calc6(this.value)" min="0" max="12"></td>
+				<td id="demo6"></td>
+			  </tr>
+			  <tr>
+				<td>3rd string (c)</td>
+				<td><input id="str7" type="number" placeholder="Fret" oninput="calc7(this.value)" onchange="calc7(this.value)" min="0" max="12"></td>
+				<td id="demo7"></td>
+			  </tr>
+			  <tr>
+				<td>4th string (low-g)</td>
+				<td><input id="str8" type="number" placeholder="Fret" oninput="calc8(this.value)" onchange="calc8(this.value)" min="0" max="12"></td>
+				<td id="demo8"></td>
+			  </tr>
+			</table>
+		</form>
+		</div>
+		<p class="copyright">Copyright © 2024 DutchUke | v1.1</p>
+	</div>
+</body>
+
+<script>
+	function calc1(valNum){
+		valNum = parseFloat(valNum);
+		first = document.getElementById("str1").value;
+		if (first >= 0 && first <= 10) {	
+			document.getElementById("demo1").innerHTML = valNum;
+			document.getElementById("demo2").innerHTML = valNum+5;
+			document.getElementById("demo3").innerHTML = valNum+9;
+			document.getElementById("demo4").innerHTML = valNum+2;
+		}		
+		else if (first > 10) {	
+			document.getElementById("demo1").innerHTML = valNum;
+			document.getElementById("demo2").innerHTML = valNum+5;
+			document.getElementById("demo3").innerHTML = "&#10005";
+			document.getElementById("demo4").innerHTML = valNum+2;
+		}	
+		document.getElementById("str2").value = "";
+		document.getElementById("str3").value = "";
+		document.getElementById("str4").value = "";
+	
+	}
+
+	function calc4(valNum){
+		valNum = parseFloat(valNum);
+		fourth = document.getElementById("str4").value;
+		if (fourth <= 1) {	
+			document.getElementById("demo1").innerHTML = "&#10005";
+			document.getElementById("demo2").innerHTML = valNum+3;
+			document.getElementById("demo3").innerHTML = valNum+7;
+			document.getElementById("demo4").innerHTML = valNum;
+		}		
+		else if (fourth >= 2) {	
+			document.getElementById("demo1").innerHTML = valNum-2;
+			document.getElementById("demo2").innerHTML = valNum+3;
+			document.getElementById("demo3").innerHTML = valNum+7;
+			document.getElementById("demo4").innerHTML = valNum;
+		}
+		document.getElementById("str1").value = "";
+		document.getElementById("str2").value = "";
+		document.getElementById("str3").value = "";
+	}
+
+	function calc2(valNum){
+		valNum = parseFloat(valNum);
+		second = document.getElementById("str2").value;
+		if (second <= 2) {	
+			document.getElementById("demo1").innerHTML = "&#10005";
+			document.getElementById("demo2").innerHTML = valNum;
+			document.getElementById("demo3").innerHTML = valNum+4;
+			document.getElementById("demo4").innerHTML = "&#10005";
+		}		
+		else if (second >= 3 && second <5) {	
+			document.getElementById("demo1").innerHTML = "&#10005";
+			document.getElementById("demo2").innerHTML = valNum;
+			document.getElementById("demo3").innerHTML = valNum+4;
+			document.getElementById("demo4").innerHTML = valNum-3;
+		}
+		else if (second >= 5) {	
+			document.getElementById("demo1").innerHTML = valNum-5;
+			document.getElementById("demo2").innerHTML = valNum;
+			document.getElementById("demo3").innerHTML = valNum+4;
+			document.getElementById("demo4").innerHTML = valNum-3;
+		}
+		document.getElementById("str1").value = "";
+		document.getElementById("str3").value = "";
+		document.getElementById("str4").value = "";
+	}
+
+	function calc3(valNum){
+		valNum = parseFloat(valNum);
+		third = document.getElementById("str3").value;
+		if (third <= 3) {	
+			document.getElementById("demo1").innerHTML = "&#10005";
+			document.getElementById("demo2").innerHTML = "&#10005";
+			document.getElementById("demo3").innerHTML= valNum;
+			document.getElementById("demo4").innerHTML = "&#10005";
+		}		
+		else if (third >= 4 && third <7) {	
+			document.getElementById("demo1").innerHTML = "&#10005";
+			document.getElementById("demo2").innerHTML = valNum-4;
+			document.getElementById("demo3").innerHTML= valNum;
+			document.getElementById("demo4").innerHTML = "&#10005";
+		}
+		else if (third >= 7 && third <9) {	
+			document.getElementById("demo1").innerHTML = "&#10005";
+			document.getElementById("demo2").innerHTML = valNum-4;
+			document.getElementById("demo3").innerHTML = valNum;
+			document.getElementById("demo4").innerHTML = valNum-7;
+		}
+		else if (third >= 9) {	
+			document.getElementById("demo1").innerHTML = valNum-9;
+			document.getElementById("demo2").innerHTML = valNum-4;
+			document.getElementById("demo3").innerHTML = valNum;
+			document.getElementById("demo4").innerHTML = valNum-7;
+		}
+		document.getElementById("str1").value = "";
+		document.getElementById("str2").value = "";
+		document.getElementById("str4").value = "";
+	}
+</script>
+<script>
+	function calc5(valNum){
+		valNum = parseFloat(valNum);
+		first = document.getElementById("str5").value;
+		if (first >= 0 && first <= 5) {	
+			document.getElementById("demo5").innerHTML = valNum;
+			document.getElementById("demo6").innerHTML = valNum+5;
+			document.getElementById("demo7").innerHTML = valNum+9;
+			document.getElementById("demo8").innerHTML = valNum+14;
+		}		
+		else if (first > 5 && first <=10) {	
+			document.getElementById("demo5").innerHTML = valNum;
+			document.getElementById("demo6").innerHTML = valNum+5;
+			document.getElementById("demo7").innerHTML = valNum+9;
+			document.getElementById("demo8").innerHTML = "&#10005";
+		}	
+		else if (first > 10) {	
+			document.getElementById("demo5").innerHTML = valNum;
+			document.getElementById("demo6").innerHTML = valNum+5;
+			document.getElementById("demo7").innerHTML = "&#10005";
+			document.getElementById("demo8").innerHTML = "&#10005";
+		}	
+		document.getElementById("str6").value = "";
+		document.getElementById("str7").value = "";
+		document.getElementById("str8").value = "";
+	
+	}
+
+	function calc8(valNum){
+		valNum = parseFloat(valNum);
+		fourth = document.getElementById("str8").value;
+		if (fourth <= 4) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = "&#10005";
+			document.getElementById("demo7").innerHTML = "&#10005";
+			document.getElementById("demo8").innerHTML = valNum;
+		}		
+		else if (fourth >= 5 && fourth < 9) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = "&#10005";
+			document.getElementById("demo7").innerHTML = valNum-5;
+			document.getElementById("demo8").innerHTML = valNum;
+		}
+		else if (fourth >= 9 && fourth <= 12) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = valNum-9;
+			document.getElementById("demo7").innerHTML = valNum-5;
+			document.getElementById("demo8").innerHTML = valNum;
+		}
+		document.getElementById("str5").value = "";
+		document.getElementById("str6").value = "";
+		document.getElementById("str7").value = "";
+	}
+
+	function calc6(valNum){
+		valNum = parseFloat(valNum);
+		second = document.getElementById("str6").value;
+		if (second <= 2) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = valNum;
+			document.getElementById("demo7").innerHTML = valNum+4;
+			document.getElementById("demo8").innerHTML = valNum+9;
+		}		
+		else if (second >= 3 && second <5) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = valNum;
+			document.getElementById("demo7").innerHTML = valNum+4;
+			document.getElementById("demo8").innerHTML = valNum+9;
+		}
+		else if (second >= 5 && second <= 10) {	
+			document.getElementById("demo5").innerHTML = valNum-5;
+			document.getElementById("demo6").innerHTML = valNum;
+			document.getElementById("demo7").innerHTML = valNum+4;
+			document.getElementById("demo8").innerHTML = valNum+9;
+		}
+		else if (second >10) {	
+			document.getElementById("demo5").innerHTML = valNum-5;
+			document.getElementById("demo6").innerHTML = valNum;
+			document.getElementById("demo7").innerHTML = valNum+4;
+			document.getElementById("demo8").innerHTML = "&#10005";
+		}
+		document.getElementById("str5").value = "";
+		document.getElementById("str7").value = "";
+		document.getElementById("str8").value = "";
+	}
+
+	function calc7(valNum){
+		valNum = parseFloat(valNum);
+		third = document.getElementById("str7").value;
+		if (third <= 3) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = "&#10005";
+			document.getElementById("demo7").innerHTML= valNum;
+			document.getElementById("demo8").innerHTML = valNum+5;
+		}		
+		else if (third >= 4 && third <7) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = valNum-4;
+			document.getElementById("demo7").innerHTML= valNum;
+			document.getElementById("demo8").innerHTML = valNum+5;
+		}
+		else if (third >= 7 && third <9) {	
+			document.getElementById("demo5").innerHTML = "&#10005";
+			document.getElementById("demo6").innerHTML = valNum-4;
+			document.getElementById("demo7").innerHTML = valNum;
+			document.getElementById("demo8").innerHTML = valNum+5;
+		}
+		else if (third >= 9) {	
+			document.getElementById("demo5").innerHTML = valNum-9;
+			document.getElementById("demo6").innerHTML = valNum-4;
+			document.getElementById("demo7").innerHTML = valNum;
+			document.getElementById("demo8").innerHTML = valNum+5;
+		}
+		document.getElementById("str5").value = "";
+		document.getElementById("str6").value = "";
+		document.getElementById("str8").value = "";
+	}
+</script>
+<script>
+function openUke(evt, ukeName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(ukeName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+</script>
+<script src="https://kit.fontawesome.com/3df1827a39.js" crossorigin="anonymous"></script>
+</html>
+
