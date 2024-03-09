@@ -102,6 +102,10 @@ input:hover {
 	font-weight: 700;
 	background-color: #fdf6f4;
 }
+
+td content: "&#10005" {
+color: "red"
+}
 </style>
 <style>
 .tab {
@@ -118,7 +122,7 @@ input:hover {
   border: 0px;
   outline: none;
   cursor: pointer;
-  margin: 0 7px 0 0;
+  margin: 0 10px 0 0;
   width: 25%;
   height: 50px;
   padding: 7px;
@@ -139,6 +143,7 @@ input:hover {
 .tab button.active {
   background-color: #fceee9;
   font-weight: 700;
+	box-shadow: 2px 8px 8px 0 rgba(0, 0, 0, 0.5), 4px 12px 12px 0 rgba(0, 0, 0, 0.5);
 }
 
 .tabcontent {
@@ -257,7 +262,6 @@ input:hover {
 		document.getElementById("str2").value = "";
 		document.getElementById("str3").value = "";
 		document.getElementById("str4").value = "";
-	
 	}
 
 	function calc4(valNum){
